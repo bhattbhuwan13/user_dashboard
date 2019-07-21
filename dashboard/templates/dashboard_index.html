@@ -1,0 +1,69 @@
+{% extends "base.html" %} 
+{% block title %}My amazing blog{% endblock %} 
+
+
+{%block styles %}
+
+<style>
+#donut-chart-52{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:30%;
+}
+
+#top-heading{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+}
+
+</style>
+
+{% endblock %}
+
+{%block content %}
+<h2 id="top-heading">Task status for user with hostname: {{hostname}}</h2>
+
+<div id="donut-chart-52" class="example-donut-chart-right-legend"></div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+var pending = {{pending}}
+var executing = {{executing}}
+      var donutData = {
+        type: "donut",
+        columns: [["pending", pending], ["executing", executing]],
+        onclick: function(d, i) {
+          console.log("onclick", d, i);
+        },
+        onmouseover: function(d, i) {
+          console.log("onmouseover", d, i);
+        },
+        onmouseout: function(d, i) {
+          console.log("onmouseout", d, i);
+        }
+      };
+
+      var donutChartRightConfig = {};
+      donutChartRightConfig.bindto = "#donut-chart-52";
+      donutChartRightConfig.tooltip = { show: true };
+      donutChartRightConfig.data = donutData;
+      donutChartRightConfig.legend = {
+        show: true,
+        position: "right"
+      };
+      
+      donutChartRightConfig.tooltip = {
+        contents: $().pfDonutTooltipContents
+      };
+
+      var donutChartRightLegend = c3.generate(donutChartRightConfig);
+</script>
+{% endblock %}
+
