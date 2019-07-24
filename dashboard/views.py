@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 import pandas as pd
+import json
 # from .as_dash import dispatcher
 
 
@@ -18,12 +19,28 @@ def index(request):
     executing_orders = len(df[df['orderstatus'] == 'Executing'])
     user = df['hostname'][1]
 
+    new_df = df[['customer', 'ordercode', 'orderstatus', 'salesman']].copy()
+    new_df['order_code'] = df['ordercode']
+    new_df['order_status'] = df['orderstatus']
+    d = new_df.to_dict(orient='records')
+    json_obj = d
+    # json_obj = json.dumps(d)
+    # json_obj = "'" + json_obj + "'"
+
+    # json_obj = new_df.to_json(orient='records')
+
+    # json_obj = json.loads(json_obj)
+
     context = {
         "pending": pending_orders,
         "executing": executing_orders,
         "hostname": user,
+        "length": len(df['ordercode']),
+        "json_obj": json_obj,
     }
-    print(df['hostname'][1])
+
+    print(json_obj)
+    print("The type of json_obj is {}".format(type(json_obj)))
     return render(request, 'dashboard_index.html', context=context)
 
 

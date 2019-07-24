@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+#example-table{
+  margin-top:3%;
+}
+
 </style>
 
 {% endblock %}
@@ -29,11 +33,29 @@
 
 <div id="donut-chart-52" class="example-donut-chart-right-legend"></div>
 
+<div id="example-table"></div>
+
 {% endblock %}
+
+
+
 
 {% block scripts %}
 
+
+
 <script>
+var tabledata = [];
+
+var jsonobj = {{ json_obj|safe }};
+
+for (i = 0; i < {{length}}; i++) {
+  
+  var p = jsonobj[i];
+  tabledata.push(p);
+
+}
+
 var pending = {{pending}}
 var executing = {{executing}}
       var donutData = {
@@ -64,6 +86,25 @@ var executing = {{executing}}
       };
 
       var donutChartRightLegend = c3.generate(donutChartRightConfig);
+
+
+
+ 
+
+ var table = new Tabulator("#example-table", {
+ 	height:500, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+ 	data:tabledata, //assign data to table
+ 	layout:"fitColumns", //fit columns to width of table (optional)
+ 	columns:[ //Define Table Columns
+	 	{title:"Order Code", field:"order_code", width:150},
+	 	{title:"Customer", field:"customer", align:"left"},
+	 	{title:"Order Status", field:"order_status"},
+	 	{title:"Salesman", field:"salesman"},
+ 	],
+ 	rowClick:function(e, row){ //trigger an alert message when the row is clicked
+ 		alert("Row " + row.getData().id + " Clicked!!!!");
+ 	},
+});
 </script>
 {% endblock %}
 
