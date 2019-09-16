@@ -13,6 +13,8 @@ import json
 
 def index(request):
     all_objects = PendingOrders.objects.all().values()
+
+    print("All objects are :")
     df = pd.DataFrame(all_objects)
 
     pending_orders = len(df[df['orderstatus'] == 'Pending'])

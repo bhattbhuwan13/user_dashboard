@@ -83,14 +83,32 @@ WSGI_APPLICATION = 'user_dash.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'Test',
+        'USER': 'test',
+        'PASSWORD': 'tset21"!',
+        'HOST': 'aab.database.windows.net',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'Test',
+#         'USER': 'test',
+#         'PASSWORD': 'tset21"!',
+#         'HOST': 'aab.database.windows.net',
+#         'PORT': '',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 13 for SQL Server',
+#         },
+#     }
+# }
 
 
 # Password validation
