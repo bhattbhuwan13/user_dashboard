@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'user_dash.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'Test',
+        'NAME': 'ReportsAAB',
         'USER': 'test',
         'PASSWORD': 'tset21"!',
         'HOST': 'aab.database.windows.net',

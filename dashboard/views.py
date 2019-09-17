@@ -1,7 +1,8 @@
 from django.shortcuts import render
-
+from django.db import connection
 from django.http import HttpResponse
 from .models import PendingOrders
+import sqlalchemy as sa
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,18 +13,32 @@ import json
 
 
 def index(request):
-    all_objects = PendingOrders.objects.all().values()
+    # engine = sa.create_engine(
+    #     'mssql+pyodbc://test:tset21"!@aab.database.windows.net/ReportsAAB?driver=ODBC+Driver+13+for+SQL+Server"')
+    cursor = connection.cursor()
+    # sql_string = '''SELECT * from OrderInfo'''
+    sql_string = '''exec sp_getAABPendingCustomerOrders "HostName"'''
+    # all_objects = cursor.execute(sql_string)
+    df = pd.read_sql_query(sql_string, connection)
+    # all_objects = PendingOrders.objects.all().values()
 
-    print("All objects are :")
-    df = pd.DataFrame(all_objects)
+    # df = pd.DataFrame(all_objects)
+    # print(all_objects)
+    print(df.columns)
+    # df.columns = all_objects.keys()
+    # df = pd.DataFrame(all_objects)
+    # df.columns = ['OrderCode', 'InputDate', 'CustCode', 'Customer', 'Memo', 'OrderStatus', 'OrderShipmentStatus',
+    #               'ShipDate', 'Truck', 'AreaDescr']
 
-    pending_orders = len(df[df['orderstatus'] == 'Pending'])
-    executing_orders = len(df[df['orderstatus'] == 'Executing'])
-    user = df['hostname'][1]
+    # print("The columns are: {}".df.columns)
 
-    new_df = df[['customer', 'ordercode', 'orderstatus', 'salesman']].copy()
-    new_df['order_code'] = df['ordercode']
-    new_df['order_status'] = df['orderstatus']
+    pending_orders = len(df[df['OrderStatus'] == 'Pending'])
+    executing_orders = len(df[df['OrderStatus'] == 'Executing'])
+    user = 'Hostname'
+
+    new_df = df[['Customer', 'OrderCode', 'OrderStatus', 'AreaDescr']].copy()
+    new_df['order_code'] = df['OrderCode']
+    new_df['order_status'] = df['OrderStatus']
     d = new_df.to_dict(orient='records')
     json_obj = d
     # json_obj = json.dumps(d)
@@ -37,11 +52,10 @@ def index(request):
         "pending": pending_orders,
         "executing": executing_orders,
         "hostname": user,
-        "length": len(df['ordercode']),
+        "length": len(df['OrderCode']),
         "json_obj": json_obj,
     }
 
-    print(json_obj)
     print("The type of json_obj is {}".format(type(json_obj)))
     return render(request, 'dashboard_index.html', context=context)
 
