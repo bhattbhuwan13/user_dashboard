@@ -1,5 +1,5 @@
-# FROM python:3.6
-FROM python:3-windowsservercore
+FROM python:3.6
+# FROM python:3-windowsservercore
 
 
 # Set environment varibles
