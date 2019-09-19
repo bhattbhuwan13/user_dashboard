@@ -25,7 +25,7 @@ SECRET_KEY = '4wx)l+sdbxg8gf(n3#_^5ilo)f26pr7fzepbcn9r6*4@vr8iju'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', '127.0.0.1', 'localhost', '0.0.0.0']
 
 
 # Application definition
@@ -75,10 +75,11 @@ WSGI_APPLICATION = 'user_dash.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 # DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 DATABASES = {
