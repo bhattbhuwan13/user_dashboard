@@ -18,10 +18,11 @@ def index(request):
     #     'mssql+pyodbc://test:tset21"!@aab.database.windows.net/ReportsAAB?driver=ODBC+Driver+13+for+SQL+Server"')
     cursor = connection.cursor()
     # sql_string = '''SELECT * from OrderInfo'''
-    host = request.META['HTTP_HOST']
+    host = request.META['REMOTE_ADDR']
+
+    print(request.META)
     #host = request.META
     #host = request.get_host()
-
 
     print("#############################")
     print(host)
