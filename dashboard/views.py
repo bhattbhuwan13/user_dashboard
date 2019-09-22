@@ -61,7 +61,7 @@ def index(request):
     context = {
         "pending": pending_orders,
         "executing": executing_orders,
-        "hostname": user,
+        "hostname": host,
         "length": len(df['OrderCode']),
         "json_obj": json_obj,
     }
