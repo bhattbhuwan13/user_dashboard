@@ -20,7 +20,7 @@ def index(request):
     # sql_string = '''SELECT * from OrderInfo'''
     host = request.META['REMOTE_ADDR']
 
-    print(request.META)
+    # print(request.META)
     #host = request.META
     #host = request.get_host()
 
