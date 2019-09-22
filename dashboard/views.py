@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse
@@ -17,7 +18,16 @@ def index(request):
     #     'mssql+pyodbc://test:tset21"!@aab.database.windows.net/ReportsAAB?driver=ODBC+Driver+13+for+SQL+Server"')
     cursor = connection.cursor()
     # sql_string = '''SELECT * from OrderInfo'''
-    sql_string = '''exec sp_getAABPendingCustomerOrders "HostName"'''
+    host = request.META['HTTP_HOST']
+    #host = request.META
+    #host = request.get_host()
+
+
+    print("#############################")
+    print(host)
+    print("#############################")
+    sql_string = '''exec sp_getAABPendingCustomerOrders "{}"'''.format(host)
+    print("The sql string is {}".format(sql_string))
     # all_objects = cursor.execute(sql_string)
     df = pd.read_sql_query(sql_string, connection)
     # all_objects = PendingOrders.objects.all().values()
