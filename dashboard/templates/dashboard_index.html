@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% block title %}My amazing blog{% endblock %} 
+{% block title %}Dashboard{% endblock %} 
 
 
 {%block styles %}
@@ -29,7 +29,7 @@
 {% endblock %}
 
 {%block content %}
-<h2 id="top-heading">Task status for user with hostname: {{hostname}}</h2>
+<h2 id="top-heading">Pending Orders at DC</h2>
 
 <div id="donut-chart-52" class="example-donut-chart-right-legend"></div>
 
@@ -100,6 +100,10 @@ var executing = {{executing}}
 	 	{title:"Customer", field:"Customer", align:"left"},
 	 	{title:"Order Status", field:"order_status"},
 	 	{title:"AreaDescr", field:"AreaDescr"},
+    {title:"InputDate", field:"InputDate"},
+    {title:"OrderShipmentStatus", field:"OrderShipmentStatus"},
+    {title:"Truck", field:"Truck"},
+    {title:"ShipDate", field:"ShipDate"}
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
  		alert("Row " + row.getData().id + " Clicked!!!!");

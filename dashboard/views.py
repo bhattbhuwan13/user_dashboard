@@ -47,7 +47,10 @@ def index(request):
     executing_orders = len(df[df['OrderStatus'] == 'Executing'])
     user = 'Hostname'
 
-    new_df = df[['Customer', 'OrderCode', 'OrderStatus', 'AreaDescr']].copy()
+    new_df = df[['Customer', 'OrderCode', 'OrderStatus', 'AreaDescr', 'InputDate', 'OrderShipmentStatus',
+                 'Truck', 'ShipDate']].copy()
+    new_df['InputDate'] = new_df['InputDate'].astype(str)
+    new_df['ShipDate'] = new_df['ShipDate'].astype(str)
     new_df['order_code'] = df['OrderCode']
     new_df['order_status'] = df['OrderStatus']
     d = new_df.to_dict(orient='records')
