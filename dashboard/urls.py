@@ -5,5 +5,5 @@ from . import views
 app_name = 'dashboard'
 urlpatterns = [
     path(r'', views.index, name='index'),
-    path(r'orderdetail', views.order_detail, name='detail'),
+    path(r'<str:order_code>', views.order_detail, name='detail'),
 ]

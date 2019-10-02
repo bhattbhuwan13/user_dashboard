@@ -106,8 +106,14 @@ var executing = {{executing}}
     {title:"ShipDate", field:"ShipDate"}
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
+    var order_code = row.getData()['OrderCode']
  		console.log(row.getData()['OrderCode']);
-    window.location='{% url "dashboard:detail"%}'
+    {% comment %} var p = '{% url "dashboard:detail" 0 %}'.replace(/0/, order_code); {% endcomment %}
+    {% comment %} console.log(p) {% endcomment %}
+
+    var p ='{% url "dashboard:detail" 0%}'.replace(/0/, order_code);
+    window.location = p
+    
  	},
 });
 </script>

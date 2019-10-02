@@ -20,13 +20,6 @@ def index(request):
     # sql_string = '''SELECT * from OrderInfo'''
     host = request.META['REMOTE_ADDR']
 
-    # print(request.META)
-    #host = request.META
-    #host = request.get_host()
-
-    print("#############################")
-    print(host)
-    print("#############################")
     sql_string = '''exec sp_getAABPendingCustomerOrders "{}"'''.format(host)
     print("The sql string is {}".format(sql_string))
     # all_objects = cursor.execute(sql_string)
@@ -68,10 +61,21 @@ def index(request):
     return render(request, 'dashboard_index.html', context=context)
 
 
-def order_detail(request):
+def order_detail(request, order_code):
+    cursor = connection.cursor()
+    sql_string = '''EXEC [dbo].[sp_getAABPendingOrderItems]@OrderCode =  "{}"'''.format(
+        order_code)
+    df = pd.read_sql_query(sql_string, connection)
+    df = df.iloc[0]
+    print(df)
+    print("The database columns are:")
+    print(df[['Product']])
     context = {
-        "pending": '',
-        "executing": 'executing_orders',
-        "hostname": 'host',
+        "status": df['Status'],
+        "shipped_quantity": df['ShippedQuantity'],
+        "order_quantity": df['OrderQuantity'],
+        "product": df[['Product']],
+        "item_code": df['ItemCode'],
+        "order_code": order_code
     }
     return render(request, 'dashboard_detail.html', context=context)
