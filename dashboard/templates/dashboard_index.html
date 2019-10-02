@@ -106,7 +106,7 @@ var executing = {{executing}}
     {title:"ShipDate", field:"ShipDate"}
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
- 		alert("Row " + row.getData().id + " Clicked!!!!");
+ 		console.log(row.getData()['OrderCode']);
  	},
 });
 </script>
