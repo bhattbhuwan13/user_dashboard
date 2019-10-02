@@ -55,12 +55,6 @@ def index(request):
     new_df['order_status'] = df['OrderStatus']
     d = new_df.to_dict(orient='records')
     json_obj = d
-    # json_obj = json.dumps(d)
-    # json_obj = "'" + json_obj + "'"
-
-    # json_obj = new_df.to_json(orient='records')
-
-    # json_obj = json.loads(json_obj)
 
     context = {
         "pending": pending_orders,
@@ -74,14 +68,10 @@ def index(request):
     return render(request, 'dashboard_index.html', context=context)
 
 
-### dash ###
-
-# def dash(request, *kwargs):
-#     print("Running dash")
-#     print(dispatcher(request))
-#     return HttpResponse(dispatcher(request))
-
-
-# @csrf_exempt
-# def dash_ajax(request):
-#     return HttpResponse(dispatcher(request), content_type='application/json')
+def order_detail(request):
+    context = {
+        "pending": '',
+        "executing": 'executing_orders',
+        "hostname": 'host',
+    }
+    return render(request, 'dashboard_detail.html', context=context)

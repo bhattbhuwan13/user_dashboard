@@ -107,6 +107,7 @@ var executing = {{executing}}
  	],
  	rowClick:function(e, row){ //trigger an alert message when the row is clicked
  		console.log(row.getData()['OrderCode']);
+    window.location='{% url "dashboard:detail"%}'
  	},
 });
 </script>
