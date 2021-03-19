@@ -18,7 +18,7 @@ django-modelcluster==4.4
 django-pyodbc-azure==2.1.0.0
 django-taggit==0.24.0
 django-treebeard==4.3
-djangorestframework==3.10.1
+djangorestframework==3.11.2
 draftjs-exporter==2.1.6
 Flask==1.1.1
 Flask-Compress==1.4.0
