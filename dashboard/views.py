@@ -20,8 +20,8 @@ def index(request):
     # sql_string = '''SELECT * from OrderInfo'''
     host = request.META['REMOTE_ADDR']
 
-    sql_string = '''exec sp_getAABPendingCustomerOrders "{}"'''.format(host)
-    print("The sql string is {}".format(sql_string))
+    sql_string = f'''exec sp_getAABPendingCustomerOrders "{host}"'''
+    print(f"The sql string is {sql_string}")
     # all_objects = cursor.execute(sql_string)
     df = pd.read_sql_query(sql_string, connection)
     # all_objects = PendingOrders.objects.all().values()
@@ -57,14 +57,14 @@ def index(request):
         "json_obj": json_obj,
     }
 
-    print("The type of json_obj is {}".format(type(json_obj)))
+    print(f"The type of json_obj is {type(json_obj)}")
     return render(request, 'dashboard_index.html', context=context)
 
 
 def order_detail(request, order_code):
     cursor = connection.cursor()
-    sql_string = '''EXEC [dbo].[sp_getAABPendingOrderItems]@OrderCode =  "{}"'''.format(
-        order_code)
+    sql_string = f'''EXEC [dbo].[sp_getAABPendingOrderItems]@OrderCode =  "{order_code}"'''
+
     df = pd.read_sql_query(sql_string, connection)
     df = df.iloc[0]
     print(df)
